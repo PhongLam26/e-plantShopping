@@ -10,12 +10,14 @@ function HomePage() {
     <>
       <Navbar />
       <main>
-        <section className="hero">
+        <section className="hero background-image">
           <div className="hero-content">
             <p className="hero-kicker"><span className="hero-kicker-line" />Grow a little happiness</p>
             <h1>Bring the<br /><em>outside</em> in.</h1>
             <p className="hero-welcome">Welcome to Paradise Nursery, where thoughtful greenery makes every room feel more like home.</p>
-            <button className="button button-light" type="button" onClick={() => navigate('/plants')}>Get Started <span aria-hidden="true">→</span></button>
+            <button className="button button-light get-started-button" type="button" onClick={() => navigate('/plants')}>
+              Get Started <span aria-hidden="true">→</span>
+            </button>
             <div className="hero-footnote"><span aria-hidden="true">✳</span> A happier home starts with a little green.</div>
           </div>
           <div className="hero-side-note" aria-hidden="true">A place to grow</div>
@@ -34,12 +36,21 @@ function HomePage() {
   );
 }
 
+function ShoppingCartPage() {
+  const navigate = useNavigate();
+  const onContinueShopping = (event) => {
+    event.preventDefault();
+    navigate('/plants');
+  };
+  return <CartItem onContinueShopping={onContinueShopping} />;
+}
+
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/plants" element={<ProductList />} />
-      <Route path="/cart" element={<CartItem />} />
+      <Route path="/cart" element={<ShoppingCartPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

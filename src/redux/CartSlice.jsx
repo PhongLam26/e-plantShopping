@@ -8,14 +8,21 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action) {
       const product = action.payload;
-      if (!product?.id) return;
+      if (!product?.id || !product?.name) return;
+      const cost = Number(product.cost ?? product.price);
+      if (!Number.isFinite(cost) || cost < 0) return;
       const existingItem = state.items.find((item) => item.id === product.id);
-      if (existingItem) existingItem.quantity += 1;
-      else state.items.push({ ...product, quantity: 1 });
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.items.push({ ...product, cost, price: Number(product.price ?? cost), quantity: 1 });
+      }
     },
     removeItem(state, action) {
-      const id = typeof action.payload === 'object' ? action.payload?.id : action.payload;
-      state.items = state.items.filter((item) => item.id !== id);
+      const identifier = typeof action.payload === 'object'
+        ? (action.payload?.id ?? action.payload?.name)
+        : action.payload;
+      state.items = state.items.filter((item) => item.id !== identifier && item.name !== identifier);
     },
     updateQuantity(state, action) {
       const { id, quantity } = action.payload ?? {};

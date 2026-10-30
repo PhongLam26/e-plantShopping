@@ -1,6 +1,8 @@
-# Paradise Nursery
+# e-plantShopping — Paradise Nursery
 
-Paradise Nursery is a responsive plant shopping application built with React. Browse a curated collection of houseplants, add favorites to a Redux-powered cart, and update quantities or remove items before checkout.
+**Project name:** e-plantShopping
+
+Paradise Nursery is a responsive plant shopping application. Browse a curated collection of houseplants, add favorites to a Redux-powered cart, and adjust quantities or remove items before checkout.
 
 ## Technologies used
 
@@ -12,19 +14,19 @@ Paradise Nursery is a responsive plant shopping application built with React. Br
 
 ## Features
 
-- A welcoming home page with the Paradise Nursery story
-- Three plant collections with six plants in each collection
-- Product photos, descriptions, prices, and add-to-cart controls
-- A shared cart count and cart state across pages
-- Quantity controls, line totals, order total, and item removal
-- A responsive layout for desktop and mobile screens
+- Paradise Nursery landing page with a welcome message and Get Started button
+- Three plant categories with six products in each category
+- Product images, descriptions, costs, and Add to Cart controls
+- A shared Redux cart count and synchronized cart state
+- Quantity controls, item totals, cart total, and item removal
+- Responsive layouts for desktop and mobile screens
 - Checkout feedback: “Coming Soon”
 
 ## Installation
 
 1. Install Node.js 20.19+ or 22.12+.
 2. Open a terminal in the project folder.
-3. Install the dependencies:
+3. Install dependencies:
 
    ```bash
    npm install
@@ -46,4 +48,4 @@ npm run build
 
 ## Plant photos
 
-The plant and garden photos are bundled locally in `public/images` so the site does not depend on an external image host at runtime. They were sourced from Unsplash. See the [Unsplash License](https://unsplash.com/license) for the applicable terms.
+Plant and garden photos are bundled locally in `public/images` so the site does not depend on an external image host at runtime. Photo sources are listed in `public/images/IMAGE-SOURCES.md`. The photos were sourced from Unsplash under its [license](https://unsplash.com/license).

@@ -241,3 +241,14 @@ button:focus-visible, a:focus-visible { outline: 3px solid #99b68e; outline-offs
   .cart-item-image { width: 64px; height: 70px; }
   .cart-item-actions { grid-column: 2; flex-direction: row; align-items: center; justify-content: space-between; }
 }
+
+/* Semantic classes used by the Coursera assignment rubric. */
+.background-image { background-color: #3e5140; background-image: linear-gradient(90deg, rgba(15,34,27,.83) 0%, rgba(19,37,29,.67) 36%, rgba(20,34,27,.16) 78%, rgba(19,31,25,.1) 100%), url('/images/hero-garden.jpg'); background-size: cover; background-position: center 53%; }
+.about-us-container { display: contents; }
+.cart-container { min-height: calc(100vh - 154px); }
+.navbar { width: 100%; }
+.text-link { border: 0; padding: 0; background: transparent; cursor: pointer; }
+.desktop-continue { align-self: center; margin-top: 16px; }
+@media (max-width: 620px) {
+  .hero.background-image { background-image: linear-gradient(90deg, rgba(15,34,27,.79) 0%, rgba(19,37,29,.61) 55%, rgba(20,34,27,.24) 100%), url('/images/hero-garden.jpg'); background-position: 61% center; }
+}
