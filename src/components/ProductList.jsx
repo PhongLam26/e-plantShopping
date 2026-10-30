@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { addItem } from '../redux/CartSlice';
 
 export const plantsArray = [
@@ -43,8 +43,23 @@ export const plantsArray = [
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 
-export function Navbar() {
+export function Navbar({ onHomeClick }) {
+  const navigate = useNavigate();
   const totalItems = useSelector((state) => state.cart.items.reduce((total, item) => total + item.quantity, 0));
+  const handleHomeClick = (event) => {
+    event.preventDefault();
+    onHomeClick?.();
+    navigate('/');
+  };
+  const handlePlantsClick = (event) => {
+    event.preventDefault();
+    navigate('/plants');
+  };
+  const handleCartClick = (event) => {
+    event.preventDefault();
+    navigate('/cart');
+  };
+
   return (
     <header className="site-header navbar">
       <div className="nav-inner">
@@ -53,16 +68,21 @@ export function Navbar() {
           <span className="brand-name">Paradise<span>Nursery</span></span>
         </NavLink>
         <nav className="main-nav" aria-label="Main navigation">
-          <NavLink end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/">Home</NavLink>
-          <NavLink className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/plants">Plants</NavLink>
-          <NavLink className={({ isActive }) => `nav-link cart-nav-link${isActive ? ' active' : ''}`} to="/cart" aria-label={`Cart, ${totalItems} items`}>
+          <NavLink end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/" onClick={handleHomeClick}>Home</NavLink>
+          <NavLink className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/plants" onClick={handlePlantsClick}>Plants</NavLink>
+          <NavLink className={({ isActive }) => `nav-link cart-nav-link${isActive ? ' active' : ''}`} to="/cart" onClick={handleCartClick} aria-label={`Cart, ${totalItems} items`}>
             <svg className="cart-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 1.9-1.4L21 8H6" /><circle cx="10" cy="20" r="1.2" /><circle cx="18" cy="20" r="1.2" /></svg>
-            <span>Cart</span><span className="cart-count" aria-live="polite">{totalItems}</span>
+            <span>Cart</span><span className="cart_quantity_count cart-count" aria-live="polite">{totalItems}</span>
           </NavLink>
         </nav>
       </div>
     </header>
   );
+}
+
+// CartItem.jsx uses this shared header so the cart and product listing keep the same navigation.
+export function CartPageNavbar() {
+  return <Navbar />;
 }
 
 export default function ProductList() {
@@ -86,38 +106,40 @@ export default function ProductList() {
             <span><span className="highlight-dot" />Something lovely for every room</span>
           </div>
         </section>
-        {plantsArray.map((category, categoryIndex) => (
-          <section className="plant-category" key={category.category} aria-labelledby={`plant-category-${categoryIndex + 1}`}>
-            <div className="category-heading">
-              <div>
-                <p className="eyebrow">Collection {String(categoryIndex + 1).padStart(2, '0')}</p>
-                <h2 id={`plant-category-${categoryIndex + 1}`}>{category.category}</h2>
-                <p>{category.description}</p>
+        <div className="product-list">
+          {plantsArray.map((category, categoryIndex) => (
+            <section className="plant-category" key={category.category} aria-labelledby={`plant-category-${categoryIndex + 1}`}>
+              <div className="category-heading">
+                <div>
+                  <p className="eyebrow">Collection {String(categoryIndex + 1).padStart(2, '0')}</p>
+                  <h2 id={`plant-category-${categoryIndex + 1}`}>{category.category}</h2>
+                  <p>{category.description}</p>
+                </div>
+                <span className="category-count">{category.plants.length} plants</span>
               </div>
-              <span className="category-count">{category.plants.length} plants</span>
-            </div>
-            <div className="product-grid">
-              {category.plants.map((plant) => (
-                <article className="product-card" key={plant.id}>
-                  <div className="product-image-wrap">
-                    <img src={plant.image} alt={`${plant.name} plant`} loading="lazy" onError={(event) => {
-                      event.currentTarget.onerror = null;
-                      event.currentTarget.src = '/images/plant-01.jpg';
-                    }} />
-                    <span className="product-category-label">{category.category}</span>
-                  </div>
-                  <div className="product-content">
-                    <div className="product-title-row"><h3>{plant.name}</h3><span className="product-price">{currency.format(plant.cost)}</span></div>
-                    <p>{plant.description}</p>
-                    <button className={`button add-button${addedToCart[plant.name] ? ' added' : ''}`} type="button" disabled={addedToCart[plant.name]} onClick={() => dispatch(addItem(plant))}>
-                      {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}{!addedToCart[plant.name] && <span aria-hidden="true">＋</span>}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        ))}
+              <div className="product-grid">
+                {category.plants.map((plant) => (
+                  <article className="product-card" key={plant.id}>
+                    <div className="product-image-wrap">
+                      <img src={plant.image} alt={`${plant.name} plant`} loading="lazy" onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = '/images/plant-01.jpg';
+                      }} />
+                      <span className="product-category-label">{category.category}</span>
+                    </div>
+                    <div className="product-content">
+                      <div className="product-title-row"><h3>{plant.name}</h3><span className="product-price">{currency.format(plant.cost)}</span></div>
+                      <p>{plant.description}</p>
+                      <button className={`button add-button${addedToCart[plant.name] ? ' added' : ''}`} type="button" disabled={addedToCart[plant.name]} onClick={() => dispatch(addItem(plant))}>
+                        {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}{!addedToCart[plant.name] && <span aria-hidden="true">＋</span>}
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </main>
     </>
   );

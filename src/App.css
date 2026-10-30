@@ -37,7 +37,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid #99b68e; outline-offs
 .cart-icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .cart-count { min-width: 21px; height: 21px; display: inline-grid; place-items: center; padding: 0 5px; border-radius: 99px; color: #fff; background: var(--forest); font-size: 10px; font-weight: 700; }
 
-.hero { min-height: clamp(600px, calc(100svh - 78px), 760px); display: flex; align-items: center; position: relative; overflow: hidden; color: white; background-color: #3e5140; background-image: linear-gradient(90deg, rgba(15,34,27,.83) 0%, rgba(19,37,29,.67) 36%, rgba(20,34,27,.16) 78%, rgba(19,31,25,.1) 100%), url('/images/hero-garden.jpg'); background-size: cover; background-position: center 53%; }
+.app-container { min-height: 100vh; }
+.hero { min-height: clamp(600px, calc(100svh - 78px), 760px); display: flex; align-items: center; position: relative; overflow: hidden; color: white; background-color: #3e5140; }
 .hero-content { width: min(1200px, calc(100% - 64px)); margin: 0 auto; padding: 66px 0 75px; position: relative; z-index: 1; }
 .hero-kicker, .eyebrow { margin: 0; color: #82977d; font-size: 10px; font-weight: 700; letter-spacing: 2px; line-height: 1.5; text-transform: uppercase; }
 .hero-kicker { display: flex; align-items: center; gap: 12px; color: #d6e2c8; }
@@ -89,6 +90,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid #99b68e; outline-offs
 .category-heading > div > p:last-child { margin: 0; color: #829087; font-size: 12px; }
 .category-heading .eyebrow { font-size: 9px; }
 .category-count { margin-bottom: 4px; padding: 7px 11px; border: 1px solid #e0e5db; border-radius: 99px; color: #73826f; font-size: 10px; white-space: nowrap; }
+.product-list { display: block; }
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 23px; }
 .product-card { min-width: 0; overflow: hidden; border: 1px solid #e9ebe5; border-radius: 9px; background: #fff; box-shadow: 0 8px 24px rgba(34,53,42,.035); transition: box-shadow .2s ease, transform .2s ease; }
 .product-card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(34,53,42,.08); }
@@ -172,7 +174,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid #99b68e; outline-offs
   .nav-link { font-size: 11px; }
   .cart-icon { width: 18px; height: 18px; }
   .cart-count { min-width: 19px; height: 19px; padding: 0 4px; font-size: 9px; }
-  .hero { min-height: clamp(560px, calc(100svh - 68px), 700px); background-image: linear-gradient(90deg, rgba(15,34,27,.79) 0%, rgba(19,37,29,.61) 55%, rgba(20,34,27,.24) 100%), url('/images/hero-garden.jpg'); background-position: 61% center; }
+  .hero { min-height: clamp(560px, calc(100svh - 68px), 700px); }
   .hero-content, .home-content, .catalog-page, .cart-page { width: calc(100% - 38px); }
   .hero-content { padding: 50px 0; }
   .hero h1 { margin: 22px 0 17px; font-size: clamp(60px, 15vw, 82px); letter-spacing: -2.7px; }
@@ -250,5 +252,5 @@ button:focus-visible, a:focus-visible { outline: 3px solid #99b68e; outline-offs
 .text-link { border: 0; padding: 0; background: transparent; cursor: pointer; }
 .desktop-continue { align-self: center; margin-top: 16px; }
 @media (max-width: 620px) {
-  .hero.background-image { background-image: linear-gradient(90deg, rgba(15,34,27,.79) 0%, rgba(19,37,29,.61) 55%, rgba(20,34,27,.24) 100%), url('/images/hero-garden.jpg'); background-position: 61% center; }
+  .background-image { background-image: linear-gradient(90deg, rgba(15,34,27,.79) 0%, rgba(19,37,29,.61) 55%, rgba(20,34,27,.24) 100%), url('/images/hero-garden.jpg'); background-position: 61% center; }
 }

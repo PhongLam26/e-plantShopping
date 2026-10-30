@@ -1,11 +1,11 @@
+import { useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AboutUs from './components/AboutUs';
 import ProductList from './components/ProductList';
 import CartItem from './components/CartItem';
 
-function HomePage() {
-  const navigate = useNavigate();
+function HomePage({ handleGetStartedClick, showProductList }) {
   return (
     <>
       <Navbar />
@@ -15,7 +15,7 @@ function HomePage() {
             <p className="hero-kicker"><span className="hero-kicker-line" />Grow a little happiness</p>
             <h1>Bring the<br /><em>outside</em> in.</h1>
             <p className="hero-welcome">Welcome to Paradise Nursery, where thoughtful greenery makes every room feel more like home.</p>
-            <button className="button button-light get-started-button" type="button" onClick={() => navigate('/plants')}>
+            <button className="button button-light get-started-button" type="button" aria-expanded={showProductList} onClick={handleGetStartedClick}>
               Get Started <span aria-hidden="true">→</span>
             </button>
             <div className="hero-footnote"><span aria-hidden="true">✳</span> A happier home starts with a little green.</div>
@@ -46,12 +46,21 @@ function ShoppingCartPage() {
 }
 
 export default function App() {
+  const [showProductList, setShowProductList] = useState(false);
+  const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
+    navigate('/plants');
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/plants" element={<ProductList />} />
-      <Route path="/cart" element={<ShoppingCartPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <div className="app-container">
+      <Routes>
+        <Route path="/" element={<HomePage handleGetStartedClick={handleGetStartedClick} showProductList={showProductList} />} />
+        <Route path="/plants" element={<ProductList />} />
+        <Route path="/cart" element={<ShoppingCartPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </div>
   );
 }

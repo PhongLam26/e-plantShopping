@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, updateQuantity } from '../redux/CartSlice';
-import { Navbar } from './ProductList';
+import { CartPageNavbar } from './ProductList';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 
@@ -26,7 +26,7 @@ export default function CartItem({ onContinueShopping }) {
 
   return (
     <>
-      <Navbar />
+      <CartPageNavbar />
       <main className="cart-page cart-container">
         <div className="cart-page-heading">
           <div>
